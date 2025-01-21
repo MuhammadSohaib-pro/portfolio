@@ -1,0 +1,35 @@
+{
+  "name": "M. Sohaib | Flutter Developer",
+  "short_name": "M. Sohaib | Flutter Developer",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0175C2",
+  "theme_color": "#0175C2",
+  "description": "I specialize in building immersive user experiences with Flutter, leveraging its powerful UI toolkit to bring your vision to life across platforms. Additionally, I have expertise in geoinformatics, where I excel at utilizing spatial data to unlock actionable insights.",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/Icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/Icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
