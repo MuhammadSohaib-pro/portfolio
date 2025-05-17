@@ -1,11 +1,11 @@
 {
-  "name": "M. Sohaib | Flutter Developer",
-  "short_name": "M. Sohaib | Flutter Developer",
+  "name": "Sohaib",
+  "short_name": "Sohaib",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",
   "theme_color": "#0175C2",
-  "description": "I specialize in building immersive user experiences with Flutter, leveraging its powerful UI toolkit to bring your vision to life across platforms. Additionally, I have expertise in geoinformatics, where I excel at utilizing spatial data to unlock actionable insights.",
+  "description": "Muhammad Sohaib - Flutter Developer specializing in cross-platform mobile applications with expertise in state management, UI/UX design, and third-party integrations. Explore my projects and professional experience.",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [

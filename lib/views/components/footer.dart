@@ -1,9 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/controllers/home_controller.dart';
-import 'package:portfolio/res/mySize.dart';
 import 'package:portfolio/res/theme_helper.dart';
+import 'package:portfolio/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Footer extends StatelessWidget {
@@ -13,6 +14,8 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isTabletOrMobile =
+        Responsive.isTablet(context) || Responsive.isMobile(context);
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFF26303E),
@@ -20,13 +23,13 @@ class Footer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: MySize.size30),
+          const SizedBox(height: 30),
           SvgPicture.asset(
             "assets/svg/initialLight.svg",
-            height: MySize.size80,
-            width: MySize.size80,
+            height: 80,
+            width: 80,
           ),
-          SizedBox(height: MySize.size40),
+          const SizedBox(height: 40),
           Obx(
             () => Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +44,7 @@ class Footer extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(width: MySize.size40),
+                const SizedBox(width: 40),
                 Text(
                   'About',
                   textAlign: TextAlign.center,
@@ -52,7 +55,7 @@ class Footer extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(width: MySize.size40),
+                const SizedBox(width: 40),
                 Text(
                   'Projects',
                   textAlign: TextAlign.center,
@@ -63,7 +66,7 @@ class Footer extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(width: MySize.size40),
+                const SizedBox(width: 40),
                 Text(
                   'Contact',
                   textAlign: TextAlign.center,
@@ -77,7 +80,7 @@ class Footer extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: MySize.size40),
+          const SizedBox(height: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -87,12 +90,14 @@ class Footer extends StatelessWidget {
                     await launchUrl(
                         Uri.parse("https://github.com/MuhammadSohaib-pro"));
                   } catch (e) {
-                    print("$e");
+                    if (kDebugMode) {
+                      print("$e");
+                    }
                   }
                 },
                 child: Container(
-                  width: MySize.size50,
-                  height: MySize.size50,
+                  width: 50,
+                  height: 50,
                   padding: const EdgeInsets.all(15),
                   decoration: ShapeDecoration(
                     gradient: const LinearGradient(
@@ -119,19 +124,21 @@ class Footer extends StatelessWidget {
                   child: SvgPicture.asset("assets/svg/github.svg"),
                 ),
               ),
-              SizedBox(width: MySize.size40),
+              const SizedBox(width: 40),
               InkWell(
                 onTap: () async {
                   try {
                     await launchUrl(Uri.parse(
                         "https://www.linkedin.com/in/muhammad-sohaib-pro/"));
                   } catch (e) {
-                    print("$e");
+                    if (kDebugMode) {
+                      print("$e");
+                    }
                   }
                 },
                 child: Container(
-                  width: MySize.size50,
-                  height: MySize.size50,
+                  width: 50,
+                  height: 50,
                   padding: const EdgeInsets.all(15),
                   decoration: ShapeDecoration(
                     gradient: const LinearGradient(
@@ -158,7 +165,7 @@ class Footer extends StatelessWidget {
                   child: SvgPicture.asset("assets/svg/linkedIn.svg"),
                 ),
               ),
-              SizedBox(width: MySize.size40),
+              const SizedBox(width: 40),
               InkWell(
                 onTap: () async {
                   try {
@@ -170,12 +177,14 @@ class Footer extends StatelessWidget {
                       emailUri,
                     );
                   } catch (e) {
-                    print("$e");
+                    if (kDebugMode) {
+                      print("$e");
+                    }
                   }
                 },
                 child: Container(
-                  width: MySize.size50,
-                  height: MySize.size50,
+                  width: 50,
+                  height: 50,
                   padding: const EdgeInsets.all(15),
                   decoration: ShapeDecoration(
                     gradient: const LinearGradient(
@@ -204,19 +213,92 @@ class Footer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: MySize.size50),
+          const SizedBox(height: 50),
           const Divider(color: Color(0xffA9A9A9)),
-          SizedBox(height: MySize.size30),
-          Text(
-            '© 2024. All Rights Reserved.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: MySize.size18,
-              color: const Color(0xFFA9A9A9),
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          SizedBox(height: MySize.size50),
+          const SizedBox(height: 20),
+          isTabletOrMobile
+              ? const Column(
+                  children: [
+                    Text(
+                      '© 2025. All Rights Reserved.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFA9A9A9),
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text.rich(
+                      TextSpan(
+                        text: 'Designed and Crafted by ',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFFA9A9A9),
+                          fontWeight: FontWeight.normal,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Muhammad Sohaib',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.mainColor,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFA9A9A9),
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                )
+              : const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '© 2025. All Rights Reserved.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color(0xFFA9A9A9),
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    SizedBox(width: 50),
+                    Text.rich(
+                      TextSpan(
+                        text: 'Designed and Crafted by ',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xFFA9A9A9),
+                          fontWeight: FontWeight.normal,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Muhammad Sohaib',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: AppColors.mainColor,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color(0xFFA9A9A9),
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+          const SizedBox(height: 20),
         ],
       ),
     );

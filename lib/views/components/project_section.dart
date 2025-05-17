@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/controllers/home_controller.dart';
-import 'package:portfolio/res/mySize.dart';
 import 'package:portfolio/res/theme_helper.dart';
 import 'package:portfolio/responsive.dart';
 import 'package:portfolio/views/components/project_card.dart';
@@ -15,32 +14,43 @@ class ProjectSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final tablet = Responsive.isTablet(context);
     final mobile = Responsive.isMobile(context);
+    final miniDesktop = Responsive.isMiniDesktop(context);
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: mobile || tablet ? MySize.size20 : MySize.size50,
-        vertical: mobile || tablet ? MySize.size20 : MySize.size70,
+        horizontal: mobile || tablet ? 20 : 50,
+        vertical: mobile || tablet ? 20 : 70,
       ),
       child: Column(
         children: [
-          Text(
+          const Text(
             'Projects',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.whiteff,
-              fontSize: MySize.size42,
+              fontSize: 42,
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: MySize.size40),
+          const SizedBox(height: 40),
           GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: tablet || mobile ? 1 : 2,
-              crossAxisSpacing:
-                  tablet || mobile ? MySize.size20 : MySize.size50,
-              mainAxisSpacing: tablet || mobile ? MySize.size20 : MySize.size50,
-              mainAxisExtent:
-                  tablet || mobile ? MySize.size550 : MySize.size575,
+              crossAxisCount: tablet
+                  ? 2
+                  : mobile
+                      ? 1
+                      : 3,
+              crossAxisSpacing: tablet || mobile
+                  ? 20
+                  : miniDesktop
+                      ? 20
+                      : 50,
+              mainAxisSpacing: tablet || mobile
+                  ? 20
+                  : miniDesktop
+                      ? 20
+                      : 50,
+              mainAxisExtent: tablet || mobile ? 500 : 520,
             ),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -52,8 +62,10 @@ class ProjectSection extends StatelessWidget {
                 description: item.description,
                 imageUrl: item.imageUrl,
                 usedTechnologies: item.usedTechnologies,
-                exploreLink: item.exploreLink,
-                haveExploreLink: item.haveExploreLink,
+                exploreIOSLink: item.iosLink,
+                exploreAndroidLink: item.androidLink,
+                haveIOSExploreLink: item.haveIOSExploreLink,
+                haveAndroidExploreLink: item.haveAndroidExploreLink,
               );
             },
           ),

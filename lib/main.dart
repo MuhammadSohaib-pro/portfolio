@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/res/mySize.dart';
+import 'package:portfolio/res/theme_helper.dart';
 import 'package:portfolio/views/home_view.dart';
 
 void main() {
@@ -11,12 +11,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MySize().init(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'M. Sohaib | Flutter Developer',
+      title: 'Sohaib',
       theme: ThemeData(
         fontFamily: 'Satoshi',
+        scrollbarTheme: const ScrollbarThemeData(
+          thumbColor: WidgetStatePropertyAll(AppColors.mainColor),
+          thickness: WidgetStatePropertyAll(8),
+          thumbVisibility: WidgetStatePropertyAll(true),
+          trackVisibility: WidgetStatePropertyAll(true),
+          interactive: true,
+        ),
       ),
       home: HomeView(),
     );

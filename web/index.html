@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--
+  <!-- Add this line to Handle CORS Issues in index.html -->
+  <meta name="referrer" content="no-referrer">
+  <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
 
@@ -28,7 +30,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta
       name="apple-mobile-web-app-title"
-      content="M. Sohaib | Flutter Developer"
+      content="Sohaib"
     />
     <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
@@ -36,15 +38,22 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-    <title>M. Sohaib | Flutter Developer</title>
+    <title>Sohaib</title>
     <link rel="manifest" href="manifest.json" />
     <style>
-      .container {
+      body{
+        background-color: #151c26;
         width: 100vw;
         height: 100vh;
+        margin: 0;
+      }
+      .container {
+        width: 100%;
+        height: 100%;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        transition: opacity 0.4s ease-out;
       }
     </style>
   </head>
@@ -53,9 +62,10 @@
       <img
         class="indicator"
         src="./assets/loading.gif"
-        alt="loading_indicator"
+        alt="loading indicator"
       />
     </div>
-    <script src="flutter_bootstrap.js" async></script>
+    <script src="flutter_bootstrap.js" async>
+    </script>
   </body>
 </html>

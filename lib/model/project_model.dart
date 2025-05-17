@@ -6,8 +6,10 @@ class ProjectModel {
   final String description;
   final String imageUrl;
   final List<Widget> usedTechnologies;
-  final String exploreLink;
-  final bool haveExploreLink;
+  final String iosLink;
+  final String androidLink;
+  final bool haveIOSExploreLink;
+  final bool haveAndroidExploreLink;
 
   ProjectModel({
     required this.id,
@@ -15,7 +17,9 @@ class ProjectModel {
     required this.description,
     required this.imageUrl,
     required this.usedTechnologies,
-    required this.exploreLink,
-    required this.haveExploreLink,
+    required this.iosLink,
+    required this.androidLink,
+    required this.haveIOSExploreLink,
+    required this.haveAndroidExploreLink,
   });
 }
