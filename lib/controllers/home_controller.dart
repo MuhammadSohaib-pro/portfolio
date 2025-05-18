@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:universal_html/html.dart' as html;
@@ -139,14 +140,30 @@ class HomeController extends GetxController {
     }
   }
 
-  void downloadResume() {
-    final baseUrl = html.window.location.href;
-    final url = '${baseUrl}assets/Muhammad%20Sohaib%20Flutter.pdf';
-    if (url.isNotEmpty) {
-      html.AnchorElement(href: url)
-        ..setAttribute('download', 'Muhammad_Sohaib_Flutter.pdf')
-        ..style.display = 'none'
-        ..click();
+  Future<void> downloadResume() async {
+    try {
+      final ByteData data = await rootBundle.load(
+        "Muhammad_Sohaib_Flutter.pdf",
+      );
+      final Uint8List bytes = data.buffer.asUint8List();
+
+      final blob = html.Blob([bytes]);
+
+      final url = html.Url.createObjectUrlFromBlob(blob);
+
+      final anchor =
+          html.AnchorElement(href: url)
+            ..setAttribute('download', "Muhammad_Sohaib_Flutter.pdf")
+            ..style.display = 'none';
+
+      html.document.body?.children.add(anchor);
+
+      anchor.click();
+      html.document.body?.children.remove(anchor);
+
+      html.Url.revokeObjectUrl(url);
+    } catch (e) {
+      debugPrint('Error downloading PDF: $e');
     }
   }
 

@@ -68,7 +68,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
-    - assets/Muhammad Sohaib Flutter.pdf
+    - assets/Muhammad_Sohaib_Flutter.pdf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
