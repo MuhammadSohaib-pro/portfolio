@@ -147,7 +147,7 @@ class HomeController extends GetxController {
       );
       final Uint8List bytes = data.buffer.asUint8List();
 
-      final blob = html.Blob([bytes]);
+      final blob = html.Blob([bytes], 'application/pdf');
 
       final url = html.Url.createObjectUrlFromBlob(blob);
 
