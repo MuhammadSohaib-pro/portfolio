@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -142,9 +143,12 @@ class HomeController extends GetxController {
 
   Future<void> downloadResume() async {
     try {
-      final ByteData data = await rootBundle.load(
-        "Muhammad_Sohaib_Flutter.pdf",
-      );
+      final String effectiveAssetPath =
+          kReleaseMode
+              ? 'assets/Muhammad_Sohaib_Flutter.pdf'
+              : "Muhammad_Sohaib_Flutter.pdf";
+              
+      final ByteData data = await rootBundle.load(effectiveAssetPath);
       final Uint8List bytes = data.buffer.asUint8List();
 
       final blob = html.Blob([bytes], 'application/pdf');
