@@ -17,6 +17,9 @@ class HomeController extends GetxController {
   var selectedType = 'Flutter UI'.obs;
   var isSwapped = false.obs;
   var isHoveringForward = true.obs;
+  var isFormSubmitting = false.obs;
+  var isFormSubmitted = false.obs;
+  var formErrorMessage = ''.obs;
 
   final ScrollController scrollController = ScrollController();
 
@@ -37,17 +40,13 @@ class HomeController extends GetxController {
 
   void setupScrollListener() {
     scrollController.addListener(() {
-      // Skip scroll updates during programmatic scrolling
       if (isProgrammaticScrolling.value) return;
-      // Get the current scroll position
       final double offset = scrollController.offset;
 
-      // Safely get positions of each section
       final double aboutPosition = getWidgetPosition(aboutKey);
       final double projectPosition = getWidgetPosition(projectKey);
       final double contactPosition = getWidgetPosition(contactKey);
 
-      // Update the selected page based on scroll position
       if (aboutPosition != -1 && offset < aboutPosition) {
         isSwapped.value = false;
         selectedPage.value = 'Home';
@@ -63,7 +62,6 @@ class HomeController extends GetxController {
     });
   }
 
-// Helper method to safely get the position of a widget
   double getWidgetPosition(GlobalKey key) {
     final context = key.currentContext;
     if (context == null) return -1;
@@ -76,14 +74,13 @@ class HomeController extends GetxController {
   void scrollToSection(GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
-      // Set flag before programmatic scrolling
       isProgrammaticScrolling.value = true;
 
-      Scrollable.ensureVisible(context,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut)
-          .then((_) {
-        // Reset flag after scrolling completes
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      ).then((_) {
         isProgrammaticScrolling.value = false;
       });
     }
@@ -105,17 +102,17 @@ class HomeController extends GetxController {
         scrollToSection(contactKey);
         break;
       default:
-        // Set flag before programmatic scrolling
         isProgrammaticScrolling.value = true;
 
         scrollController
-            .animateTo(0,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut)
+            .animateTo(
+              0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            )
             .then((_) {
-          // Reset flag after scrolling completes
-          isProgrammaticScrolling.value = false;
-        });
+              isProgrammaticScrolling.value = false;
+            });
     }
   }
 
@@ -123,14 +120,33 @@ class HomeController extends GetxController {
     selectedType.value = type;
   }
 
-  sendMessage() {
-    if (contactFormKey.currentState!.validate()) {}
+  void sendMessage() {
+    if (contactFormKey.currentState!.validate()) {
+      isFormSubmitting.value = true;
+
+      Future.delayed(const Duration(seconds: 2), () {
+        isFormSubmitting.value = false;
+        isFormSubmitted.value = true;
+
+        nameController.clear();
+        emailController.clear();
+        messageController.clear();
+
+        Future.delayed(const Duration(seconds: 5), () {
+          isFormSubmitted.value = false;
+        });
+      });
+    }
   }
 
   void downloadResume() {
-    const String url = 'assets/Muhammad%20Sohaib%20Flutter.pdf';
+    final baseUrl = html.window.location.href;
+    final url = '$baseUrl/assets/Muhammad%20Sohaib%20Flutter.pdf';
+
     html.AnchorElement(href: url)
       ..setAttribute('download', 'Muhammad Sohaib Flutter.pdf')
+      ..style.display = 'none'
+      ..target = '_blank'
       ..click();
   }
 
@@ -159,11 +175,7 @@ class HomeController extends GetxController {
             height: 24,
             width: 24,
           ),
-          Image.asset(
-            "assets/images/restapi_icon.png",
-            height: 24,
-            width: 24,
-          ),
+          Image.asset("assets/images/restapi_icon.png", height: 24, width: 24),
         ],
         iosLink:
             "https://apps.apple.com/pk/app/motorcut-mobile/id6633439138?platform=iphone",
@@ -195,11 +207,7 @@ class HomeController extends GetxController {
             height: 24,
             width: 24,
           ),
-          Image.asset(
-            "assets/images/restapi_icon.png",
-            height: 24,
-            width: 24,
-          ),
+          Image.asset("assets/images/restapi_icon.png", height: 24, width: 24),
         ],
         iosLink: "",
         androidLink: "",

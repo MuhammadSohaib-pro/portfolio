@@ -53,7 +53,7 @@ class _ParticleBackgroundState extends State<ParticleBackground> {
                 center: const Alignment(0.2, -0.3),
                 radius: 1.2,
                 colors: [
-                  widget.particleColor.withOpacity(0.05),
+                  widget.particleColor.withValues(alpha: 0.05),
                   Colors.transparent,
                 ],
               ),
@@ -88,8 +88,9 @@ class AnimatedBackground extends StatelessWidget {
       tween: ConstantTween(Duration.zero),
       duration: const Duration(days: 1),
       builder: (context, value, child) {
-        final time =
-            Duration(milliseconds: DateTime.now().millisecondsSinceEpoch);
+        final time = Duration(
+          milliseconds: DateTime.now().millisecondsSinceEpoch,
+        );
         return CustomPaint(
           painter: ParticlePainter(particles, time, particleColor),
         );
@@ -129,19 +130,35 @@ class ParticleModel {
     opacity = 0.2 + random.nextDouble() * 0.6;
     pulseRate = 0.5 + random.nextDouble() * 2.0;
 
-    tween = MovieTween()
-      ..tween('x', Tween(begin: startPosition.dx, end: endPosition.dx),
-          duration: duration)
-      ..tween('y', Tween(begin: startPosition.dy, end: endPosition.dy),
-          duration: duration)
-      ..tween('opacity', Tween(begin: 0.0, end: opacity),
-          duration:
-              Duration(milliseconds: (duration.inMilliseconds * 0.3).toInt()))
-      ..tween('fade', Tween(begin: opacity, end: 0.0),
-          begin:
-              Duration(milliseconds: (duration.inMilliseconds * 0.7).toInt()),
-          duration:
-              Duration(milliseconds: (duration.inMilliseconds * 0.3).toInt()));
+    tween =
+        MovieTween()
+          ..tween(
+            'x',
+            Tween(begin: startPosition.dx, end: endPosition.dx),
+            duration: duration,
+          )
+          ..tween(
+            'y',
+            Tween(begin: startPosition.dy, end: endPosition.dy),
+            duration: duration,
+          )
+          ..tween(
+            'opacity',
+            Tween(begin: 0.0, end: opacity),
+            duration: Duration(
+              milliseconds: (duration.inMilliseconds * 0.3).toInt(),
+            ),
+          )
+          ..tween(
+            'fade',
+            Tween(begin: opacity, end: 0.0),
+            begin: Duration(
+              milliseconds: (duration.inMilliseconds * 0.7).toInt(),
+            ),
+            duration: Duration(
+              milliseconds: (duration.inMilliseconds * 0.3).toInt(),
+            ),
+          );
   }
 
   void restart({Duration? time}) {
@@ -169,7 +186,8 @@ class ParticlePainter extends CustomPainter {
     for (var particle in particles) {
       particle.update(time);
 
-      final progress = (time - particle.startTime).inMilliseconds /
+      final progress =
+          (time - particle.startTime).inMilliseconds /
           particle.duration.inMilliseconds;
 
       final movie = particle.tween.transform(progress);
@@ -183,21 +201,28 @@ class ParticlePainter extends CustomPainter {
       final pulseFactor = 0.8 + (sin(pulseTime * particle.pulseRate) + 1) * 0.1;
 
       final actualOpacity = movie.get('opacity') ?? particle.opacity;
-      final paint = Paint()
-        ..color = particleColor.withOpacity(actualOpacity * pulseFactor)
-        ..style = PaintingStyle.fill;
+      final paint =
+          Paint()
+            ..color = particleColor.withValues(
+              alpha: actualOpacity * pulseFactor,
+            )
+            ..style = PaintingStyle.fill;
 
       canvas.drawCircle(position, particle.size * pulseFactor, paint);
 
       // Add a subtle glow effect
       if (particle.size > 3) {
-        final glowPaint = Paint()
-          ..color = particleColor.withOpacity(actualOpacity * 0.3)
-          ..style = PaintingStyle.fill
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 15.0);
+        final glowPaint =
+            Paint()
+              ..color = particleColor.withValues(alpha: actualOpacity * 0.3)
+              ..style = PaintingStyle.fill
+              ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 15.0);
 
         canvas.drawCircle(
-            position, particle.size * 1.5 * pulseFactor, glowPaint);
+          position,
+          particle.size * 1.5 * pulseFactor,
+          glowPaint,
+        );
       }
     }
   }

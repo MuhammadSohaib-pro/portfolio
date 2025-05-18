@@ -108,18 +108,15 @@ class _ContactSectionState extends State<ContactSection>
         controller.isHoveringForward.value = true;
         controller.isSwapped.value = true;
       },
-      child: isTabletOrMobile
-          ? _buildMobileContent(context)
-          : _buildDesktopContent(context),
+      child:
+          isTabletOrMobile
+              ? _buildMobileContent(context)
+              : _buildDesktopContent(context),
     );
   }
 
   Widget _buildMobileContent(BuildContext context) {
-    return Column(
-      children: [
-        _buildContactForm(true),
-      ],
-    );
+    return Column(children: [_buildContactForm(true)]);
   }
 
   Widget _buildDesktopContent(BuildContext context) {
@@ -151,17 +148,18 @@ class _ContactSectionState extends State<ContactSection>
           0,
           0,
         ),
-        height: miniDesktop ? 700 : 600,
+        height: 700,
         decoration: BoxDecoration(
-          borderRadius: controller.isSwapped.value
-              ? const BorderRadius.only(
-                  topRight: Radius.circular(24),
-                  bottomRight: Radius.circular(24),
-                )
-              : const BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  bottomLeft: Radius.circular(24),
-                ),
+          borderRadius:
+              controller.isSwapped.value
+                  ? const BorderRadius.only(
+                    topRight: Radius.circular(24),
+                    bottomRight: Radius.circular(24),
+                  )
+                  : const BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    bottomLeft: Radius.circular(24),
+                  ),
           image: const DecorationImage(
             image: AssetImage("assets/images/contactbg.png"),
             fit: BoxFit.cover,
@@ -250,9 +248,10 @@ class _ContactSectionState extends State<ContactSection>
       child: Padding(
         padding: const EdgeInsets.all(40),
         child: Column(
-          crossAxisAlignment: isTabletOrMobile
-              ? CrossAxisAlignment.center
-              : CrossAxisAlignment.start,
+          crossAxisAlignment:
+              isTabletOrMobile
+                  ? CrossAxisAlignment.center
+                  : CrossAxisAlignment.start,
           children: [
             const Text(
               "I'm interested in...",
@@ -278,62 +277,65 @@ class _ContactSectionState extends State<ContactSection>
     final tablet = Responsive.isTablet(context);
     final miniDesktop = Responsive.isMiniDesktop(context);
 
-    return Obx(() => AnimatedContainer(
-          width: MediaQuery.of(context).size.width / 2.5,
-          duration: const Duration(seconds: 1),
-          curve: Curves.easeInOut,
-          transform: Matrix4.translationValues(
-            controller.isSwapped.value
-                ? (controller.isHoveringForward.value
-                    ? -((MediaQuery.of(context).size.width / 2.5) +
-                        ((tablet || miniDesktop) ? 20 : 60))
-                    : ((MediaQuery.of(context).size.width / 2.5) +
-                        ((tablet || miniDesktop) ? 20 : 60)))
-                : 0,
-            0,
-            0,
-          ),
-          height: miniDesktop ? 700 : 600,
-          decoration: BoxDecoration(
-            color: const Color(0xFFEEEEEE),
-            borderRadius: controller.isSwapped.value
-                ? const BorderRadius.only(
+    return Obx(
+      () => AnimatedContainer(
+        width: MediaQuery.of(context).size.width / 2.5,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+        transform: Matrix4.translationValues(
+          controller.isSwapped.value
+              ? (controller.isHoveringForward.value
+                  ? -((MediaQuery.of(context).size.width / 2.5) +
+                      ((tablet || miniDesktop) ? 20 : 60))
+                  : ((MediaQuery.of(context).size.width / 2.5) +
+                      ((tablet || miniDesktop) ? 20 : 60)))
+              : 0,
+          0,
+          0,
+        ),
+        height: 700,
+        decoration: BoxDecoration(
+          color: const Color(0xFFEEEEEE),
+          borderRadius:
+              controller.isSwapped.value
+                  ? const BorderRadius.only(
                     topLeft: Radius.circular(24),
                     bottomLeft: Radius.circular(24),
                   )
-                : const BorderRadius.only(
+                  : const BorderRadius.only(
                     topRight: Radius.circular(24),
                     bottomRight: Radius.circular(24),
                   ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.2),
-                blurRadius: 20,
-                spreadRadius: 1,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.2),
+              blurRadius: 20,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "I'm interested in...",
+                style: TextStyle(
+                  color: Color(0xFF151C25),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
+              const SizedBox(height: 15),
+              _buildInterestButtons(),
+              const SizedBox(height: 15),
+              Expanded(child: _buildContactFormFields()),
             ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(40),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "I'm interested in...",
-                  style: TextStyle(
-                    color: Color(0xFF151C25),
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                _buildInterestButtons(),
-                const SizedBox(height: 15),
-                Expanded(child: _buildContactFormFields()),
-              ],
-            ),
-          ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget _buildInterestButtons() {
@@ -369,7 +371,9 @@ class _ContactSectionState extends State<ContactSection>
           SizedBox(width: double.infinity, child: _buildButton("Flutter UI")),
           const SizedBox(height: 10),
           SizedBox(
-              width: double.infinity, child: _buildButton("Flutter Android")),
+            width: double.infinity,
+            child: _buildButton("Flutter Android"),
+          ),
           const SizedBox(height: 10),
           SizedBox(width: double.infinity, child: _buildButton("Flutter IOS")),
           const SizedBox(height: 10),
@@ -383,13 +387,15 @@ class _ContactSectionState extends State<ContactSection>
     bool isSelected = controller.selectedType.value == type;
     final RxBool isHovered = false.obs;
 
-    return Obx(() => MouseRegion(
-          onEnter: (_) => isHovered.value = true,
-          onExit: (_) => isHovered.value = false,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            child: isSelected
-                ? ElevatedButton(
+    return Obx(
+      () => MouseRegion(
+        onEnter: (_) => isHovered.value = true,
+        onExit: (_) => isHovered.value = false,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          child:
+              isSelected
+                  ? ElevatedButton(
                     onPressed: () => controller.selectType(type),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -409,36 +415,40 @@ class _ContactSectionState extends State<ContactSection>
                       ),
                     ),
                   )
-                : OutlinedButton(
+                  : OutlinedButton(
                     onPressed: () => controller.selectType(type),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       side: BorderSide(
-                        color: isHovered.value
-                            ? AppColors.mainColor
-                            : const Color(0x4C2E0249),
+                        color:
+                            isHovered.value
+                                ? AppColors.mainColor
+                                : const Color(0x4C2E0249),
                         width: isHovered.value ? 2 : 1,
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      backgroundColor: isHovered.value
-                          ? AppColors.mainColor.withValues(alpha: 0.1)
-                          : Colors.transparent,
+                      backgroundColor:
+                          isHovered.value
+                              ? AppColors.mainColor.withValues(alpha: 0.1)
+                              : Colors.transparent,
                     ),
                     child: Text(
                       type,
                       style: TextStyle(
                         fontSize: 18,
-                        color: isHovered.value
-                            ? AppColors.mainColor
-                            : const Color(0x4C2E0249),
+                        color:
+                            isHovered.value
+                                ? AppColors.mainColor
+                                : const Color(0x4C2E0249),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-          ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget _buildContactFormFields() {
@@ -469,8 +479,9 @@ class _ContactSectionState extends State<ContactSection>
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'Email is required';
-              } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                  .hasMatch(value)) {
+              } else if (!RegExp(
+                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+              ).hasMatch(value)) {
                 return 'Please enter a valid email';
               }
               return null;
@@ -508,137 +519,128 @@ class _ContactSectionState extends State<ContactSection>
   }) {
     final RxBool isFocused = false.obs;
 
-    return Obx(() => AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: isFocused.value
-                ? [
+    return Obx(
+      () => AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow:
+              isFocused.value
+                  ? [
                     BoxShadow(
                       color: AppColors.mainColor.withValues(alpha: 0.2),
                       blurRadius: 15,
                       spreadRadius: 1,
-                    )
+                    ),
                   ]
-                : null,
-          ),
-          child: Focus(
-            onFocusChange: (hasFocus) => isFocused.value = hasFocus,
-            child: TextFormField(
-              controller: controller,
-              decoration: InputDecoration(
-                labelText: labelText,
-                hintText: hintText,
-                filled: true,
-                fillColor: Colors.white,
-                prefixIcon: Icon(
-                  prefixIcon,
-                  color:
-                      isFocused.value ? AppColors.mainColor : Colors.grey[600],
-                ),
-                labelStyle: TextStyle(
-                  fontSize: 16,
-                  color:
-                      isFocused.value ? AppColors.mainColor : Colors.grey[700],
-                  fontWeight: FontWeight.w500,
-                ),
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[400],
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: Colors.grey[300]!,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                    color: AppColors.mainColor,
-                    width: 2,
-                  ),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                    color: AppColors.red,
-                  ),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(
-                    color: AppColors.red,
-                    width: 2,
-                  ),
-                ),
-                errorStyle: const TextStyle(
-                  color: AppColors.red,
-                  fontWeight: FontWeight.w500,
-                ),
+                  : null,
+        ),
+        child: Focus(
+          onFocusChange: (hasFocus) => isFocused.value = hasFocus,
+          child: TextFormField(
+            controller: controller,
+            decoration: InputDecoration(
+              labelText: labelText,
+              hintText: hintText,
+              filled: true,
+              fillColor: Colors.white,
+              prefixIcon: Icon(
+                prefixIcon,
+                color: isFocused.value ? AppColors.mainColor : Colors.grey[600],
               ),
-              validator: validator,
-              keyboardType: keyboardType,
-              style: const TextStyle(
+              labelStyle: TextStyle(
                 fontSize: 16,
-                color: AppColors.black00,
+                color: isFocused.value ? AppColors.mainColor : Colors.grey[700],
                 fontWeight: FontWeight.w500,
               ),
-              maxLines: maxLines,
+              hintStyle: TextStyle(fontSize: 14, color: Colors.grey[400]),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey[300]!),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: AppColors.mainColor,
+                  width: 2,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: AppColors.red),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: AppColors.red, width: 2),
+              ),
+              errorStyle: const TextStyle(
+                color: AppColors.red,
+                fontWeight: FontWeight.w500,
+              ),
             ),
+            validator: validator,
+            keyboardType: keyboardType,
+            style: const TextStyle(
+              fontSize: 16,
+              color: AppColors.black00,
+              fontWeight: FontWeight.w500,
+            ),
+            maxLines: maxLines,
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget _buildSendMessageButton() {
     final RxBool isHovered = false.obs;
 
-    return Obx(() => MouseRegion(
-          onEnter: (_) => isHovered.value = true,
-          onExit: (_) => isHovered.value = false,
-          cursor: SystemMouseCursors.click,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            transform: Matrix4.identity()..scale(isHovered.value ? 1.05 : 1.0),
-            child: ElevatedButton(
-              onPressed: () {
-                if (controller.contactFormKey.currentState?.validate() ??
-                    false) {
-                  controller.sendMessage();
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+    return Obx(
+      () => MouseRegion(
+        onEnter: (_) => isHovered.value = true,
+        onExit: (_) => isHovered.value = false,
+        cursor: SystemMouseCursors.click,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          transform: Matrix4.identity()..scale(isHovered.value ? 1.05 : 1.0),
+          child: ElevatedButton(
+            onPressed: () {
+              if (controller.contactFormKey.currentState?.validate() ?? false) {
+                controller.sendMessage();
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              backgroundColor: AppColors.mainColor,
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              elevation: isHovered.value ? 10 : 4,
+              shadowColor: AppColors.mainColor.withValues(alpha: 0.5),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  isHovered.value ? Icons.send : Icons.send_outlined,
+                  color: AppColors.black00,
+                  size: 24,
                 ),
-                backgroundColor: AppColors.mainColor,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                elevation: isHovered.value ? 10 : 4,
-                shadowColor: AppColors.mainColor.withValues(alpha: 0.5),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    isHovered.value ? Icons.send : Icons.send_outlined,
+                const SizedBox(width: 12),
+                Text(
+                  "Send Message",
+                  style: TextStyle(
+                    fontSize: 18,
                     color: AppColors.black00,
-                    size: 24,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: isHovered.value ? 1.2 : 1.0,
                   ),
-                  const SizedBox(width: 12),
-                  Text(
-                    "Send Message",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: AppColors.black00,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: isHovered.value ? 1.2 : 1.0,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
