@@ -141,13 +141,13 @@ class HomeController extends GetxController {
 
   void downloadResume() {
     final baseUrl = html.window.location.href;
-    final url = '$baseUrl/assets/Muhammad%20Sohaib%20Flutter.pdf';
-
-    html.AnchorElement(href: url)
-      ..setAttribute('download', 'Muhammad Sohaib Flutter.pdf')
-      ..style.display = 'none'
-      ..target = '_blank'
-      ..click();
+    final url = '${baseUrl}assets/Muhammad%20Sohaib%20Flutter.pdf';
+    if (url.isNotEmpty) {
+      html.AnchorElement(href: url)
+        ..setAttribute('download', 'Muhammad_Sohaib_Flutter.pdf')
+        ..style.display = 'none'
+        ..click();
+    }
   }
 
   initializedList() {
